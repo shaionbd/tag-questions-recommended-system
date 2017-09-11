@@ -1,0 +1,27 @@
+
+.nav-tabs{
+	/* transform: translateY(-44px); */
+	margin-top: -44px;
+}
+
+.vote span{
+    display: block;
+    text-align: center;
+    font-size: 22px;
+}
+
+.vote p{
+	font-size: 18px;
+}
+
+.question-details .title{
+	margin-top: 0;
+}
+
+
+
+.tab-pane .btn.btn-primary{
+	background-color: #E1ECF4 !important;
+	border: none;
+	color: #2e6da4;
+}

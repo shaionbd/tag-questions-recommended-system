@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>stack</title>
+
+        {% load staticfiles %}
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+
+	</head>
+	<body>
+		<div class="container">
+			<div class="row">
+				<h3>All Questions</h3>
+				<ul class="nav nav-tabs">
+                    {% for tag in expertise_tag %}
+                        {% if active_tag == tag %}
+                            <li class="active pull-right"><a href="#{{ tag }}">{{ tag }}</a></li>
+                        {% else %}
+                            <li class="pull-right"><a href="#{{ tag }}">{{ tag }}</a></li>
+                        {% endif %}
+
+                    {% endfor %}
+				</ul>
+				<hr>
+				
+				<div class="tab-content clearfix">
+                    {% for tag in expertise_tag %}
+					{% if active_tag == tag %}
+                            <div class="{tab-pane fade in active" id="{{ tag }}">
+                        {% else %}
+                            <div class="tab-pane fade in" id="{{ tag }}">
+                        {% endif %}
+
+						{% for question in questions %}
+                            <div class="row">
+                                <!-- vote -->
+                                <div class="col-sm-1">
+                                    <div class="vote">
+
+                                        <span>{{ question.answer_count }}</span>
+                                        <p class="text-center">Answer</p>
+                                    </div>
+                                </div>
+                                <div class="col-sm-8">
+                                    <div class="question-details">
+                                        <h3 class="title"><a href="https://stackoverflow.com/questions/{{ question.question_id }}" target="_blank">{{ question.title }}</a></h3>
+                                        {{ question.body|slice:"0:200"}}...
+                                    </div>
+                                    <br>
+                                    {% for tag in question.tags %}
+                                        <a href="https://stackoverflow.com/questions/tagged/{{ tag }}" class="btn btn-primary">{{ tag }}</a>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <hr>
+                        {% endfor %}
+					</div>
+                    {% endfor %}
+				</div>
+			</div>
+			
+			<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+			<script>
+			$(document).ready(function(){
+				$(".nav-tabs a").click(function(){
+					$(this).tab('show');
+				});
+			});
+			</script>
+		</body>
+	</html>
